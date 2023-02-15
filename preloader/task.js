@@ -1,10 +1,10 @@
-let imgProgress = document.getElementById("loader")
-let classActiveImg = "loader"
+const imgProgress = document.getElementById("loader")
+const classActiveImg = "loader"
 
-let listValue = document.getElementById("items")
+const listValue = document.getElementById("items")
 
 function createValueHtml(val, count, typeVal) {
-    let hmtlValue = `   <div class="item">
+    const hmtlValue = `   <div class="item">
                         <div class="item__code">
                             ${val}
                         </div>
@@ -19,21 +19,21 @@ function createValueHtml(val, count, typeVal) {
 }
 
 URL = "https://students.netoservices.ru/nestjs-backend/slow-get-courses"
-let response = new XMLHttpRequest()
+const response = new XMLHttpRequest()
 response.open("GET", URL)
 response.send()
 response.addEventListener("readystatechange", () => {
-    if (response.readyState == response.DONE) {
+    if (response.readyState == response.DONE && response.status == "200") {
         imgProgress.className = classActiveImg
-        let r = response.response,
+        const r = response.response,
             json = JSON.parse(r)
         vals = json.response.Valute
         for (let elem in vals) {
-            let val = vals[elem],
-                code = val.CharCode,
-                name = val.Name,
-                value = val.Value,
-                divText = createValueHtml(code, value, name)
+            const   val = vals[elem],
+                    code = val.CharCode,
+                    name = val.Name,
+                    value = val.Value,
+                    divText = createValueHtml(code, value, name)
             listValue.insertAdjacentHTML("beforeend", divText)
         }
     }
